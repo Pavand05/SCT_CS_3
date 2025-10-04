@@ -102,13 +102,12 @@ function checkStrength() {
 
   let score = 0;
 
-  // Criteria checks
   if (password.length >= 8) score++;
   if (/[A-Z]/.test(password) && /[a-z]/.test(password)) score++;
   if (/\d/.test(password)) score++;
   if (/[^A-Za-z0-9]/.test(password)) score++;
 
-  // Update bar and text
+ 
   let strength = '';
   let color = '';
   let width = '';
@@ -145,3 +144,4 @@ function checkStrength() {
 
 </body>
 </html>
+
