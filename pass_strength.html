@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Password Strength Checker</title>
+
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .container {
+    background: #1e293b;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    width: 360px;
+    text-align: center;
+  }
+
+  h2 {
+    margin-bottom: 20px;
+    color: #7c3aed;
+  }
+
+  input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;
+    margin-bottom: 15px;
+  }
+
+  .strength-bar {
+    height: 12px;
+    width: 100%;
+    border-radius: 6px;
+    background: #334155;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    width: 0%;
+    transition: width 0.4s ease;
+    border-radius: 6px;
+  }
+
+  .strength-text {
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 5px;
+  }
+
+  .criteria {
+    text-align: left;
+    font-size: 14px;
+    margin-top: 10px;
+    color: #cbd5e1;
+  }
+
+  .criteria span {
+    display: block;
+    margin-bottom: 3px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>🔐 Password Strength Checker</h2>
+    <input type="password" id="password" placeholder="Enter your password" oninput="checkStrength()" />
+    <div class="strength-bar">
+      <div class="bar-fill" id="bar"></div>
+    </div>
+    <div class="strength-text" id="strengthText">Strength: </div>
+
+    <div class="criteria">
+      <span>• At least 8 characters</span>
+      <span>• Contains uppercase and lowercase letters</span>
+      <span>• Includes numbers</span>
+      <span>• Has special characters (!@#$%^&*)</span>
+    </div>
+  </div>
+
+<script>
+function checkStrength() {
+  const password = document.getElementById('password').value;
+  const bar = document.getElementById('bar');
+  const text = document.getElementById('strengthText');
+
+  let score = 0;
+
+  // Criteria checks
+  if (password.length >= 8) score++;
+  if (/[A-Z]/.test(password) && /[a-z]/.test(password)) score++;
+  if (/\d/.test(password)) score++;
+  if (/[^A-Za-z0-9]/.test(password)) score++;
+
+  // Update bar and text
+  let strength = '';
+  let color = '';
+  let width = '';
+
+  switch (score) {
+    case 0:
+    case 1:
+      strength = 'Very Weak';
+      color = '#ef4444';
+      width = '25%';
+      break;
+    case 2:
+      strength = 'Weak';
+      color = '#f59e0b';
+      width = '50%';
+      break;
+    case 3:
+      strength = 'Good';
+      color = '#3b82f6';
+      width = '75%';
+      break;
+    case 4:
+      strength = 'Strong';
+      color = '#22c55e';
+      width = '100%';
+      break;
+  }
+
+  bar.style.width = width;
+  bar.style.background = color;
+  text.textContent = `Strength: ${strength}`;
+}
+</script>
+
+</body>
+</html>
